@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Hand Tools</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="images/utlogo.png" alt="UT Logo">
+        </div>
+        <nav>
+            <ul>
+    
+                <li><a href="#"></a></li>
+   
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="#">Dremel Anomaly Detection</a> 
+    </div>
+
+    <!-- Main Content -->
+    <main>
+            <div class="container">
+        <h1>Real-time Anomaly Detection for AI Enhanced Tool Usage in Dremels</h1>
+        <p>This project leverages anomaly detection through machine learning to improve the safety and efficiency of dremel usage. Our approach is centered around the idea that AI is a tool for empowerment, not replacement. The goal is to assist workers in identifying and addressing potential issues in real-time, ensuring that tools are used optimally and safely.</p>
+
+        <h2>Code Functionality Overview</h2>
+
+        <h3>Data Preparation:</h3>
+        <ul>
+            <li>The code starts by loading measurements of current from a dremel. Utilizing an Arduino nanochip and various code scripts, current data is extracted from the dremel in realtime and used to build the training data for the model and anomaly detection.</li>
+            <img src="images/dremel.jpg" alt="Dremel with Nanochip" width="350" height="300"><img src="images/current_clip.jpg" alt="Current Clip" width="350" height="300">  
+            <li>To process and normalize the data for consistency, the data is filtered and cleaned to make it suitable for our neural network model.</li>
+            <li>The training data consists of over 60,000 data points of non-anomalous current values ranging from 0.36657 to 1.40274; The training data was collected over a span of 10 minutes with 5 second intervals of active use and stationary use.</li> <img src="images/training_data.png" alt="Training Data Numbers" width="350" height="300"><img src="images/training_data_ss.png" alt="Training Data Graph" width="350" height="300">
+            <li>The anomaly/test data consists of over 10,000 data points of a mixture of non-anomalous and anomalous current values ranging from 0.32747 to 2.23363; The anomalous data was collected over a span of 2 minutes with 5 second intervals of active use and stationary use. The points of anomaly are when the dremel tool was used with excessive force which caused smoke</li> <img src="images/anomaly_data.png" alt="Anomaly Data Numbers" width="350" height="300"><img src="images/anomaly_data_ss.png" alt="Anomaly Data Graph" width="350" height="300">
+        </ul>
+
+        <h3>Model Design:</h3>
+        <ul>
+            <li>The core of how anomaly detection is implemented is through a Sequential neural network model built using Python packages TensorFlow and Keras.</li> <img src="images/Tensorflow.png" alt="Tensorflow"><img src="images/Keras.png" alt="Keras">
+            <li>Conv1D layers are utilized to capture patterns over time, followed by Conv1DTranspose layers to reconstruct the input data. The difference between the actual and reconstructed data helps us identify anomalies.</li> <img src="images/anomaly_detection_model_ss.png" alt="Model screenshot" height="500" width="600">
+            <li>The model is trained to recognize normal behavior in the tool's operation by learning from recorded data.</li>
+        </ul>
+
+        <h3>Training and Validation:</h3>
+        <ul>
+            <li>The model is trained using sequences of data, allowing it to learn patterns that represent normal operation. We use a portion of the data for validation to prevent overfitting.</li>
+            <li>After training, we evaluate the model by calculating the Mean Absolute Error (MAE) between the predicted and actual data, which helps us establish a threshold for anomaly detection.</li>
+        </ul>
+
+        <h3>Anomaly Detection:</h3>
+        <ul>
+            <li>Once trained, the model is packaged and loaded onto the dremel and tested with new data that can be collected in real-time. We compute the mean absolute error for these test sequences and compare them to the previously established threshold.</li>
+            <li>Any sequence that exceeds this threshold is flagged as an anomaly, indicating a potential issue with the dremel's operation.</li>
+            <li>The code then highlights these anomalies in red on a plot, allowing for easy visualization and interpretation. <img src="images/anomaly_current_data_august16_ss.png" alt="Anomaly Graph" height="600" width="700"></li>
+        </ul>
+
+        <h2>Future Work:</h2>
+        <ul>
+            <li>As of now the anomaly detection model only detects anomalies with current. In the future it is possible to detect anomalies with multiple measurements like acceleration, gyro, hand-positioning, and etc </li><img src="images/hand_recognition.png" alt="Hand Recognition" height="250" width="350"><img src="images/dremel_hold.png" alt="Holding Dremel" height="250" width="350"> 
+            <li>Although most data and testing has been conducted on a dremel, many other tools like drills, power saws, welding tools, and many more could potentially utilize this model for enhanced use that promotes safety and efficiency</li>
+            <img src="images/welding_tool.jpg" alt="Welding Tool" height="250" width="350"><img src="images/power_saw.jpeg" alt="Power Saw" height="250" width="350"> 
+            <li>Anomaly detection could be presented in an intuitive and accessible UI rather than a barebones Python script. Imagine the anomaly detection portrayed on a screen or in augmented reality. This anomaly detection model serves as a base for endless opportunity for real use by trade skill workers. </li><img src="images/warning_sign.png" alt="Warning Sign" height="250" width="350"><img src="images/giga_display.jpeg" alt="Screen Display" height="250" width="350"> 
+        </ul>
+
+        <h2>Impact on Workers</h2>
+        <ul>
+            <li><strong>Enhanced Safety:</strong> The system can detect deviations in tool usage that may indicate unsafe operation, providing real-time feedback to workers and preventing accidents before they occur.</li>
+            <li><strong>Skill Improvement:</strong> By analyzing patterns in tool usage, workers can receive insights into their technique, helping them refine their skills and use tools more effectively.</li>
+            <li><strong>Assistance, Not Replacement:</strong> This AI system is designed to support workers by providing them with actionable insights. It is not a replacement for human workers but a tool to enhance their capabilities.</li>
+        </ul>
+
+        <p>This anomaly detection model exemplifies how AI can be a valuable asset in fostering a safer and more efficient working environment while respecting and enhancing the skills of trade skill workers.</p>
+    </div>
+
+
+
+
+        </div>
+        
+        <!-- Sidebar -->
+        <aside>
+            <h3>Links</h3>
+            <a href="https://bridgingbarriers.utexas.edu/good-systems/projects/making-smart-tools-work-for-everyone">Smart Hand Tools</a>
+            <div></div>
+            <a href="https://github.com/samsk1201/Anomaly-Detection-Files">GitHub</a>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="contact">
+            <p><strong>Contact Information</strong></p>
+            <p>Phone: 650-872-9399</p>
+            <p>Email: samsk1201@utexas.edu</p>
+        </div>
+        <div class="footer-logo">
+            <img src="images/utlogo.png" alt="UT Logo">
+        </div>
+    </footer>
+</body>
+</html>
